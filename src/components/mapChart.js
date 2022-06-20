@@ -1,27 +1,8 @@
-import React, { memo } from "react";
-import {
-  ComposableMap,
-  Geographies,
-  Geography
-} from "react-simple-maps";
+import React from "react";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
+// Topojson from https://cartomap.github.io/nl/
 const geoUrlNl = "https://cartomap.github.io/nl/wgs84/gemeente_2022.topojson";
-
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
-
-const width = 800;
-const height = 600;
-
-const rounded = (num) => {
-  if (num > 1000000000) {
-    return Math.round(num / 100000000) / 10 + "Bn";
-  } else if (num > 1000000) {
-    return Math.round(num / 100000) / 10 + "M";
-  } else {
-    return Math.round(num / 100) / 10 + "K";
-  }
-};
 
 const MapChart = ({ setTooltipContent }) => {
   return (
@@ -46,8 +27,8 @@ const MapChart = ({ setTooltipContent }) => {
                 key={geo.properties.statnaam}
                 geography={geo}
                 onMouseEnter={() => {
-                  const { statnaam, POP_EST } = geo.properties;
-                  setTooltipContent(`${statnaam} — ${rounded(POP_EST)}`);
+                  const { statnaam } = geo.properties;
+                  setTooltipContent(`${statnaam}`);
                 }}
                 onMouseLeave={() => {
                   setTooltipContent("");
@@ -75,4 +56,4 @@ const MapChart = ({ setTooltipContent }) => {
   );
 };
 
-export default memo(MapChart);
+export default MapChart;
