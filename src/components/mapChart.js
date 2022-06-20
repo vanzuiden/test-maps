@@ -3,6 +3,7 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 // Topojson from https://cartomap.github.io/nl/
 const geoUrlNl = "https://cartomap.github.io/nl/wgs84/gemeente_2022.topojson";
+const geoGgdNl = "https://cartomap.github.io/nl/wgs84/ggdregio_2021.topojson";
 
 const MapChart = ({ setTooltipContent }) => {
   return (
@@ -17,6 +18,22 @@ const MapChart = ({ setTooltipContent }) => {
       >
         <Geographies
           geography={geoUrlNl}
+          fill="#000000"
+          stroke="#000000"
+          strokeWidth={0.125}
+        >
+          {({ geographies }) =>
+            geographies.map((geo) => (
+              <Geography
+                key={geo.properties.statnaam}
+                geography={geo}
+              />
+            ))
+          }
+        </Geographies>
+
+        <Geographies
+          geography={geoGgdNl}
           stroke="#000000"
           strokeWidth={0.125}
         >
