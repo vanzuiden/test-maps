@@ -17,7 +17,7 @@ const MapChart = ({ setTooltipContent }) => {
       >
         <Geographies
           geography={geoUrlNl}
-          fill="#D6D6DA"
+          // fill="#D6D6DA"
           stroke="#000000"
           strokeWidth={0.125}
         >
@@ -35,15 +35,15 @@ const MapChart = ({ setTooltipContent }) => {
                 }}
                 style={{
                   default: {
-                    fill: "#D6D6DA",
+                    fill: "#00b2a9",
                     outline: "none",
                   },
                   hover: {
-                    fill: "#F53",
+                    fill: "#6639b7",
                     outline: "none",
                   },
                   pressed: {
-                    fill: "#E42",
+                    fill: "#6639b7",
                     outline: "none",
                   },
                 }}
