@@ -5,9 +5,9 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 const geoUrlNl = "https://cartomap.github.io/nl/wgs84/gemeente_2022.topojson";
 const geoGgdNl = "https://cartomap.github.io/nl/wgs84/ggdregio_2021.topojson";
 
-const MapChart = ({ setTooltipContent }) => {
+const MapChart = ({ setTooltipContent, ggdChecked }) => {
   return (
-    <div>
+    <>
       <ComposableMap
         data-tip=""
         projection="geoAzimuthalEqualArea"
@@ -16,59 +16,82 @@ const MapChart = ({ setTooltipContent }) => {
           scale: 10000,
         }}
       >
+        {!ggdChecked && (
         <Geographies
           geography={geoUrlNl}
-          fill="#000000"
-          stroke="#000000"
-          strokeWidth={0.125}
+          stroke="#232129"
+          strokeWidth={0.25}
         >
           {({ geographies }) =>
-            geographies.map((geo) => (
-              <Geography
-                key={geo.properties.statnaam}
-                geography={geo}
-              />
-            ))
-          }
+              geographies.map((geo) => (
+                <Geography
+                  key={geo.properties.statnaam}
+                  geography={geo}
+                  onMouseEnter={() => {
+                    const { statnaam } = geo.properties;
+                    setTooltipContent(`${statnaam}`);
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent("");
+                  }}
+                  style={{
+                    default: {
+                      fill: "#5ecc62",
+                      outline: "none",
+                    },
+                    hover: {
+                      fill: "#00ad45",
+                      outline: "none",
+                    },
+                    pressed: {
+                      fill: "#00ad45",
+                      outline: "none",
+                    },
+                  }}
+                />
+              ))
+            }
         </Geographies>
-
-        <Geographies
-          geography={geoGgdNl}
-          stroke="#000000"
-          strokeWidth={0.125}
-        >
-          {({ geographies }) =>
-            geographies.map((geo) => (
-              <Geography
-                key={geo.properties.statnaam}
-                geography={geo}
-                onMouseEnter={() => {
-                  const { statnaam } = geo.properties;
-                  setTooltipContent(`${statnaam}`);
-                }}
-                onMouseLeave={() => {
-                  setTooltipContent("");
-                }}
-                style={{
-                  default: {
-                    fill: "#5ecc62",
-                    outline: "none",
-                  },
-                  hover: {
-                    fill: "#00ad45",
-                    outline: "none",
-                  },
-                  pressed: {
-                    fill: "#00ad45",
-                    outline: "none",
-                  },
-                }}
-              />
-            ))
-          }
-        </Geographies>
+        )}
+        {ggdChecked && (
+          <Geographies
+            geography={geoGgdNl}
+            stroke="#232129"
+            strokeWidth={0.25}
+          >
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <Geography
+                  key={geo.properties.statnaam}
+                  geography={geo}
+                  onMouseEnter={() => {
+                    const { statnaam } = geo.properties;
+                    setTooltipContent(`${statnaam}`);
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent("");
+                  }}
+                  style={{
+                    default: {
+                      fill: "#5ecc62",
+                      outline: "none",
+                    },
+                    hover: {
+                      fill: "#00ad45",
+                      outline: "none",
+                    },
+                    pressed: {
+                      fill: "#00ad45",
+                      outline: "none",
+                    },
+                  }}
+                />
+              ))
+            }
+          </Geographies>
+        )}
       </ComposableMap>
-    </div>
+    </>
   );
 };
 
