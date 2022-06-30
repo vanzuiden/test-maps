@@ -31,7 +31,7 @@ const codeStyles = {
 const IndexPage = () => {
   const [content, setContent] = useState("");
   const [ggdChecked, setGgdChecked] = useState(false);
-
+  const [markerChecked, setMarkerChecked] = useState(false);
   function toggle(value){
     return !value;
   }
@@ -59,9 +59,15 @@ const IndexPage = () => {
           checked={ggdChecked}
           onChange={() => setGgdChecked(toggle)}
         />
-        GGD
+        GGD Topojson
+        <input
+          type="checkbox"
+          checked={markerChecked}
+          onChange={() => setMarkerChecked(toggle)}
+        />
+        Marker
       </p>
-      <MapChart setTooltipContent={setContent} ggdChecked={ggdChecked} />
+      <MapChart setTooltipContent={setContent} ggdChecked={ggdChecked} markerChecked={markerChecked} />
       <ReactTooltip backgroundColor="#b3dcff" textColor="#232129">
         {content}
       </ReactTooltip>
